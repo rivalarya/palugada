@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from modules.third_party.router import router as third_party_router
 from modules.image_to_text.router import router as image_to_text_router
 
 app = FastAPI(title="Image Processing API")
@@ -12,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(third_party_router, prefix="/api")
 app.include_router(image_to_text_router, prefix="/api")
 
 @app.get("/")
