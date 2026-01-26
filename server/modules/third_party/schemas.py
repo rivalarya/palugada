@@ -1,4 +1,7 @@
 from pydantic import BaseModel
 
-class ThirdPartyInstallation(BaseModel):
+class ThirdPartyStatus(BaseModel):
     tesseract: bool
+
+class ThirdPartyAction(BaseModel):
+    name: str

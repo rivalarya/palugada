@@ -1,12 +1,18 @@
 import Link from "next/link";
-import { FileText } from "lucide-react";
+import { FileText, Settings } from "lucide-react";
 
 const features = [
   {
     title: "Image to Text",
-    description: "Extract teks dari gambar menggunakan OCR",
+    description: "Extract text from images using OCR",
     href: "/image-to-text",
     icon: FileText,
+  },
+  {
+    title: "Settings",
+    description: "Manage third-party installations",
+    href: "/settings",
+    icon: Settings,
   },
 ];
 
@@ -15,10 +21,10 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-2">
-          Tools Collection
+          Palugada
         </h1>
         <p className="text-gray-600 text-center mb-12">
-          Pilih tool yang ingin digunakan
+          Select the tool you want to use
         </p>
 
         <div className="grid gap-6 md:grid-cols-2">

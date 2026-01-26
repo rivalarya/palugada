@@ -2,9 +2,10 @@ import pytesseract
 import urllib.request
 import zipfile
 import os
+import shutil
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# assign tesseract path
 pytesseract.pytesseract.tesseract_cmd = os.path.join(
     BASE_DIR,
     "Tesseract-OCR",
@@ -27,7 +28,6 @@ def install_tesseract() -> None:
         urllib.request.urlretrieve(download_url, zip_path)
 
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            # Extract directly into the script directory
             zip_ref.extractall(script_dir)
 
     except Exception as e:
@@ -36,3 +36,9 @@ def install_tesseract() -> None:
     finally:
         if os.path.exists(zip_path):
             os.remove(zip_path)
+
+def remove_tesseract() -> None:
+    tesseract_dir = os.path.join(BASE_DIR, "Tesseract-OCR")
+
+    if os.path.exists(tesseract_dir):
+        shutil.rmtree(tesseract_dir)

@@ -10,7 +10,47 @@ export async function extractText(file: File): Promise<{ text: string; filename:
   });
 
   if (!response.ok) {
-    throw new Error("Gagal extract text");
+    throw new Error("Failed to extract text");
+  }
+
+  return response.json();
+}
+
+export async function getThirdPartyStatus(): Promise<{ tesseract: boolean }> {
+  const response = await fetch(`${API_URL}/third-party/status`);
+
+  if (!response.ok) {
+    throw new Error("Failed to get status");
+  }
+
+  return response.json();
+}
+
+export async function installThirdParty(name: string): Promise<{ tesseract: boolean }> {
+  const response = await fetch(`${API_URL}/third-party/install`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || "Failed to install");
+  }
+
+  return response.json();
+}
+
+export async function removeThirdParty(name: string): Promise<{ tesseract: boolean }> {
+  const response = await fetch(`${API_URL}/third-party/remove`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || "Failed to remove");
   }
 
   return response.json();

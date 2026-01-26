@@ -53,12 +53,12 @@ export default function Dropzone({ onDrop, loading }: DropzoneProps) {
       ) : (
         <>
           <p className="text-gray-600 mb-2">
-            {isDragActive ? "Drop gambar di sini" : "Drag & drop gambar atau klik"}
+            {isDragActive ? "Drop image here" : "Drag & drop an image or click"}
           </p>
           <p className="text-sm text-gray-500 mb-3">PNG, JPG, JPEG</p>
           <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
             <Clipboard className="h-4 w-4" />
-            <span>atau paste (Ctrl+V) gambar dari clipboard</span>
+            <span>or paste (Ctrl+V) image from clipboard</span>
           </div>
         </>
       )}

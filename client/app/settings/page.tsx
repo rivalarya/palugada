@@ -1,8 +1,8 @@
-import ImageToTextFeature from "@/components/features/image-to-text/image-to-text-feature";
+import SettingsFeature from "@/components/features/settings/settings-feature";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function ImageToTextPage() {
+export default function SettingsPage() {
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -14,9 +14,9 @@ export default function ImageToTextPage() {
           Back
         </Link>
         <h1 className="text-3xl font-bold text-center mb-8">
-          Image to Text Converter
+          Settings
         </h1>
-        <ImageToTextFeature />
+        <SettingsFeature />
       </div>
     </main>
   );

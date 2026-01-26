@@ -42,7 +42,7 @@ export default function ResultDisplay({ text, filename }: ResultDisplayProps) {
         </button>
       </div>
       <div className="bg-gray-50 rounded p-4 max-h-96 overflow-y-auto">
-        <pre className="whitespace-pre-wrap text-sm">{text || "Tidak ada text terdeteksi"}</pre>
+        <pre className="whitespace-pre-wrap text-sm">{text || "No text detected"}</pre>
       </div>
     </div>
   );
