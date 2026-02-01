@@ -7,6 +7,7 @@ import {
   Home,
   Wrench,
   Search,
+  ImageMinus,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -37,6 +38,11 @@ const mainNavItems = [
     title: "Image to Text",
     url: "/image-to-text",
     icon: FileText,
+  },
+  {
+    title: "Image Compression",
+    url: "/image-compression",
+    icon: ImageMinus,
   },
 ]
 

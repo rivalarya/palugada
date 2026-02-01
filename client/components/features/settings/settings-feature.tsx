@@ -7,6 +7,7 @@ import { AlertCircle } from "lucide-react";
 
 type ThirdPartyStatus = {
   tesseract: boolean;
+  ffmpeg: boolean;
 };
 
 export default function SettingsFeature() {
@@ -76,14 +77,24 @@ export default function SettingsFeature() {
       )}
 
       {status && (
-        <ThirdPartyCard
-          name="Tesseract OCR"
-          description="OCR engine for image to text conversion. Used in: Image to Text"
-          installed={status.tesseract}
-          onInstall={() => handleInstall("tesseract")}
-          onRemove={() => handleRemove("tesseract")}
-          disabled={loading}
-        />
+        <>
+          <ThirdPartyCard
+            name="Tesseract OCR"
+            description="OCR engine for image to text conversion. Used in: Image to Text"
+            installed={status.tesseract}
+            onInstall={() => handleInstall("tesseract")}
+            onRemove={() => handleRemove("tesseract")}
+            disabled={loading}
+          />
+          <ThirdPartyCard
+            name="FFmpeg"
+            description="Video and audio processing tool. Used in: Image Compression"
+            installed={status.ffmpeg}
+            onInstall={() => handleInstall("ffmpeg")}
+            onRemove={() => handleRemove("ffmpeg")}
+            disabled={loading}
+          />
+        </>
       )}
     </div>
   );

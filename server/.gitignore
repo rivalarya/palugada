@@ -5,3 +5,5 @@ __pycache__/
 
 # image to text module
 Tesseract-OCR
+# ffmpeg module
+ffmpeg-master-latest-win64-gpl-shared

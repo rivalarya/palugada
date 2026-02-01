@@ -52,32 +52,34 @@ export default function Home() {
           </Card>
 
           {/* Image Compress */}
-          <Card className="flex flex-col opacity-75 border-dashed hover:opacity-90 transition-opacity">
+          <Card className="flex flex-col border-primary/50 shadow-md hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div className="p-2 bg-muted rounded-lg">
-                  <FileText className="h-6 w-6 text-muted-foreground" />
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <FileText className="h-6 w-6 text-primary" />
                 </div>
-                <Badge variant="outline">Coming Soon</Badge>
+                <Badge variant="default">Ready</Badge>
               </div>
-              <CardTitle className="mt-4">Image Compress</CardTitle>
+              <CardTitle className="mt-4">Image Compression</CardTitle>
               <CardDescription>
                 Reduce image file size without losing quality.
               </CardDescription>
             </CardHeader>
             <CardFooter className="mt-auto pt-4">
-              <Button disabled variant="secondary" className="w-full">
-                Coming Soon
-              </Button>
+              <Link href="/image-compression" className="w-full">
+                <Button className="w-full gap-2">
+                  Open Tool <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
 
           {/* Speech to Text */}
-          <Card className="flex flex-col opacity-75 border-dashed hover:opacity-90 transition-opacity">
+          <Card className="flex flex-col border-primary/50 shadow-md hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div className="p-2 bg-muted rounded-lg">
-                  <FileText className="h-6 w-6 text-muted-foreground" />
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <FileText className="h-6 w-6 text-primary" />
                 </div>
                 <Badge variant="outline">Coming Soon</Badge>
               </div>
