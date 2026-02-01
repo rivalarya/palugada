@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import ThirdPartyCard from "./third-party-card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 type ThirdPartyStatus = {
   tesseract: boolean;
@@ -10,18 +12,20 @@ type ThirdPartyStatus = {
 export default function SettingsFeature() {
   const [status, setStatus] = useState<ThirdPartyStatus | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchStatus();
   }, []);
 
   const fetchStatus = async () => {
+    setError(null);
     try {
       const { getThirdPartyStatus } = await import("@/lib/api");
       const data = await getThirdPartyStatus();
       setStatus(data);
     } catch (error) {
-      alert("Error: " + (error as Error).message);
+      setError((error as Error).message);
     } finally {
       setLoading(false);
     }
@@ -29,12 +33,13 @@ export default function SettingsFeature() {
 
   const handleInstall = async (name: string) => {
     setLoading(true);
+    setError(null);
     try {
       const { installThirdParty } = await import("@/lib/api");
       const data = await installThirdParty(name);
       setStatus(data);
     } catch (error) {
-      alert("Error: " + (error as Error).message);
+      setError((error as Error).message);
     } finally {
       setLoading(false);
     }
@@ -42,31 +47,44 @@ export default function SettingsFeature() {
 
   const handleRemove = async (name: string) => {
     setLoading(true);
+    setError(null);
     try {
       const { removeThirdParty } = await import("@/lib/api");
       const data = await removeThirdParty(name);
       setStatus(data);
     } catch (error) {
-      alert("Error: " + (error as Error).message);
+      setError((error as Error).message);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading || !status) {
+  if (loading && !status) {
     return <div className="text-center py-8">Loading...</div>;
   }
 
   return (
     <div className="space-y-4">
-      <ThirdPartyCard
-        name="Tesseract OCR"
-        description="OCR engine for image to text conversion. Used in: Image to Text"
-        installed={status.tesseract}
-        onInstall={() => handleInstall("tesseract")}
-        onRemove={() => handleRemove("tesseract")}
-        disabled={loading}
-      />
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            {error}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {status && (
+        <ThirdPartyCard
+          name="Tesseract OCR"
+          description="OCR engine for image to text conversion. Used in: Image to Text"
+          installed={status.tesseract}
+          onInstall={() => handleInstall("tesseract")}
+          onRemove={() => handleRemove("tesseract")}
+          disabled={loading}
+        />
+      )}
     </div>
   );
 }
