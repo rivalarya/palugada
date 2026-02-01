@@ -7,7 +7,7 @@ import ResultDisplay from "./result-display";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, UploadCloud, CheckCircle2 } from "lucide-react";
-import { installThirdParty } from "@/lib/api";
+import { installThirdParty } from "@/lib/api/third-party";
 
 export default function ImageToTextFeature() {
   const [result, setResult] = useState<{ text: string; filename: string } | null>(null);
@@ -23,7 +23,7 @@ export default function ImageToTextFeature() {
     setSuccess(null);
     
     try {
-      const { extractText } = await import("@/lib/api");
+      const { extractText } = await import("@/lib/api/image-to-text");
       const data = await extractText(file);
       setResult(data);
     } catch (error) {

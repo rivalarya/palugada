@@ -9,7 +9,8 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, UploadCloud, Download } from "lucide-react";
-import { compressImage, getThirdPartyStatus, installThirdParty } from "@/lib/api";
+import { compressImage } from "@/lib/api/image-compression";
+import { getThirdPartyStatus, installThirdParty } from "@/lib/api/third-party";
 
 export default function ImageCompressionFeature() {
   const [result, setResult] = useState<{ blob: Blob; filename: string } | null>(null);

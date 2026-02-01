@@ -22,7 +22,7 @@ export default function SettingsFeature() {
   const fetchStatus = async () => {
     setError(null);
     try {
-      const { getThirdPartyStatus } = await import("@/lib/api");
+      const { getThirdPartyStatus } = await import("@/lib/api/third-party");
       const data = await getThirdPartyStatus();
       setStatus(data);
     } catch (error) {
@@ -36,7 +36,7 @@ export default function SettingsFeature() {
     setLoading(true);
     setError(null);
     try {
-      const { installThirdParty } = await import("@/lib/api");
+      const { installThirdParty } = await import("@/lib/api/third-party");
       const data = await installThirdParty(name);
       setStatus(data);
     } catch (error) {
@@ -50,7 +50,7 @@ export default function SettingsFeature() {
     setLoading(true);
     setError(null);
     try {
-      const { removeThirdParty } = await import("@/lib/api");
+      const { removeThirdParty } = await import("@/lib/api/third-party");
       const data = await removeThirdParty(name);
       setStatus(data);
     } catch (error) {
