@@ -5,17 +5,22 @@ import { useDropzone } from "react-dropzone";
 import Dropzone from "./dropzone";
 import ResultDisplay from "./result-display";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, UploadCloud } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, UploadCloud, CheckCircle2 } from "lucide-react";
+import { installThirdParty } from "@/lib/api";
 
 export default function ImageToTextFeature() {
   const [result, setResult] = useState<{ text: string; filename: string } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [installing, setInstalling] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleExtract = useCallback(async (file: File) => {
     setLoading(true);
     setResult(null);
     setError(null);
+    setSuccess(null);
     
     try {
       const { extractText } = await import("@/lib/api");
@@ -28,6 +33,20 @@ export default function ImageToTextFeature() {
       setLoading(false);
     }
   }, []);
+
+  const handleInstallTesseract = async () => {
+    setInstalling(true);
+    try {
+      await installThirdParty("tesseract");
+      setError(null);
+      setSuccess("Tesseract installed successfully. Please try again.");
+    } catch (e) {
+      console.error(e);
+      setError("Failed to install Tesseract.");
+    } finally {
+      setInstalling(false);
+    }
+  };
 
   const onDrop = useCallback((files: File[]) => {
     if (files[0]) handleExtract(files[0]);
@@ -83,12 +102,33 @@ export default function ImageToTextFeature() {
       <div className="space-y-4">
         <Dropzone onOpen={open} loading={loading} isDragActive={isDragActive} />
         
+        {success && (
+          <Alert variant="default" className="border-green-500 text-green-700 bg-green-50">
+            <CheckCircle2 className="h-4 w-4 text-green-600" />
+            <AlertTitle>Success</AlertTitle>
+            <AlertDescription>
+              {success}
+            </AlertDescription>
+          </Alert>
+        )}
+
         {error && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              {error}
+            <AlertDescription className="flex flex-col gap-2">
+              <p>{error}</p>
+              {error.includes("Tesseract") && (
+                <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleInstallTesseract}
+                    disabled={installing}
+                    className="w-fit bg-background text-foreground hover:bg-accent"
+                >
+                    {installing ? "Installing..." : "Install Tesseract"}
+                </Button>
+              )}
             </AlertDescription>
           </Alert>
         )}

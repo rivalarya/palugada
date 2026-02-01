@@ -10,7 +10,8 @@ export async function extractText(file: File): Promise<{ text: string; filename:
   });
 
   if (!response.ok) {
-    throw new Error("Failed to extract text");
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.detail || "Failed to extract text");
   }
 
   return response.json();
@@ -20,7 +21,8 @@ export async function getThirdPartyStatus(): Promise<{ tesseract: boolean }> {
   const response = await fetch(`${API_URL}/third-party/status`);
 
   if (!response.ok) {
-    throw new Error("Failed to get status");
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.detail || "Failed to get status");
   }
 
   return response.json();
